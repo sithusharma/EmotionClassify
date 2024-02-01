@@ -25,18 +25,19 @@ def preprocess_frame(frame):
     gray_frame = np.expand_dims(gray_frame, axis=0)   # Expand dimensions
     return gray_frame
 
+
 def get_emotion_label(prediction):
     emotions = ["Angry", "Fear", "Happy", "Neutral", "Sad", "Suprised"]
     return emotions[np.argmax(prediction)]
 
-def run_emotion_analysis():
-    cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
-# Convert to grayscale for face detection
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Convert to grayscale for face detection
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.1, 4)
 
@@ -55,12 +56,10 @@ def run_emotion_analysis():
         # Display the emotion label
         cv2.putText(frame, emotion_label, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
-        cv2.imshow('Emotion Recognition', frame)
+    cv2.imshow('Emotion Recognition', frame)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-    cap.release()
-    cv2.destroyAllWindows()
-
-
+cap.release()
+cv2.destroyAllWindows()
