@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+
+<body>
+    <h1>Emotion Classification</h1>
+    <main>
+        <p class="description">Welcome to our Emotion Recognition Software, a cutting-edge tool designed to analyze and
+            classify emotions based on facial expressions in real-time. This software utilizes advanced machine learning
+            algorithms to provide accurate emotion classification. To get started, simply click the 'Start
+            Classification' button and grant camera access when prompted. Our software will then analyze the feed and
+            display the recognized emotions on the screen.</p>
+        <p class="info-note">Please note: The recognition process might take a while. Thank you for your patience.</p>
+    </main>
+    <button id="startClassification">Start Classification</button>
+    <script>
+        document.getElementById('startClassification').addEventListener('click', function () {
+            fetch('/start-classification', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => alert(data.message));
+        });
+    </script>
+</body>
+
+</html>
